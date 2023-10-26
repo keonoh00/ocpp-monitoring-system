@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import LongContainer from "./components/LongContainer/LongContainer";
 import StatusContainer from "./components/StatusContainer/StatusContainer";
-import useChargerStatus from "./hooks/useChargerStatus";
 
 const AppContainer = styled.div`
   display: flex;
@@ -26,7 +25,6 @@ const Title = styled.h1`
 function App() {
   const [visibleClientIdx, setVisibleClientIdx] = useState<number>(0);
   const [maxUsers, setMaxUsers] = useState<number>(10);
-  const { data: chargerStatusData } = useChargerStatus();
 
   const onPressLeft = () => {
     if (visibleClientIdx > 0) {
