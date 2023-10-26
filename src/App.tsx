@@ -55,7 +55,6 @@ function App() {
         />
         <LongContainer title={"Server"} />
       </RowContainer>
-
       <StatusContainer />
     </AppContainer>
   );
