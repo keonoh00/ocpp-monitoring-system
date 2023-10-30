@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "preserveValueImports": false
   },
-  "include": ["src"]
+  "include": ["web/src"]
 }
