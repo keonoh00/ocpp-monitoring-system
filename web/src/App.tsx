@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import LongContainer from "./components/LongContainer/LongContainer";
 import StatusContainer from "./components/StatusContainer/StatusContainer";
+import MessageContainer from "./components/MessageContainer/MessageContainer";
 
 const AppContainer = styled.div`
   display: flex;
@@ -50,7 +51,9 @@ function App() {
           style={{ marginRight: 15 }}
           onPressLeft={onPressLeft}
           onPressRight={onPressRight}
-        />
+        >
+          <MessageContainer />
+        </LongContainer>
         <LongContainer title={"Server"} />
       </RowContainer>
       <StatusContainer />
