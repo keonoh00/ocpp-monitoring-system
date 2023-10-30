@@ -1,0 +1,6 @@
+export enum ClientStatus {
+  CONNECTED = 'CONNECTED',
+  WAITING = 'WAITING',
+  FAILED = 'FAILED',
+  DISCONNECTED = 'DISCONNECTED',
+}
