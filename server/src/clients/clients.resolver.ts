@@ -17,7 +17,7 @@ export class ClientResolver {
     return CLIENTS.find((client) => client.id === clientId);
   }
 
-  @Query(() => ClientStatus)
+  @Query(() => String)
   async clientStatus(
     @Args('clientId') clientId: number,
   ): Promise<ClientStatus> {
