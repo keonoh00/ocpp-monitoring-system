@@ -1,0 +1,14 @@
+{
+  "name": "ocpp-web",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "web:dev": "cd web && yarn start",
+    "server:dev": "cd server && yarn start:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keonoh00/ocpp-web.git"
+  },
+  "author": "Keon Oh Kim"
+}
