@@ -5,6 +5,7 @@ import { ClientsModule } from './clients/clients.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+import { Client } from './clients/entities/client.entity';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import * as Joi from 'joi';
       database: process.env.DB_NAME,
       synchronize: true,
       logging: true,
-      entities: [ClientsModule],
+      entities: [Client],
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
