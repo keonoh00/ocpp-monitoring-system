@@ -7,6 +7,7 @@ type LongContainerProps = {
   indexing?: boolean;
   onPressLeft?: () => void;
   onPressRight?: () => void;
+  children?: React.ReactNode;
 };
 
 const LongContainer: React.FC<LongContainerProps> = ({
@@ -15,6 +16,7 @@ const LongContainer: React.FC<LongContainerProps> = ({
   indexing,
   onPressLeft,
   onPressRight,
+  children,
 }) => {
   return (
     <BorderContainer style={style}>
@@ -27,6 +29,7 @@ const LongContainer: React.FC<LongContainerProps> = ({
       ) : (
         <Title>{title}</Title>
       )}
+      {children}
     </BorderContainer>
   );
 };
