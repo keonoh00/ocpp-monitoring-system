@@ -2,14 +2,17 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Client } from './entities/client.entity';
 import { CreateClientDto } from './dtos/createClient.dto';
 import { ClientStatus } from 'src/types/clients';
+import { ClientService } from './clients.service';
 
 const CLIENTS = [];
 
 @Resolver(() => Client)
 export class ClientResolver {
+  constructor(private readonly clientService: ClientService) {}
+
   @Query(() => [Client])
-  clients(): Client[] {
-    return [];
+  async clients(): Promise<Client[]> {
+    return await this.clientService.getAll();
   }
 
   @Query(() => Client)
