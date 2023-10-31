@@ -29,9 +29,12 @@ const MessageContainer: FC<MessageContainerProps> = ({
           fontSize: "0.5em",
           width: "100%",
           justifyContent: "flex-start",
+          alignItems: "center",
           paddingTop: 0,
           paddingBottom: 0,
           textAlign: "left",
+          backgroundColor: "lightgray",
+          borderRadius: 0,
           ...buttonStyle,
         }}
         onClick={handleOpen}
