@@ -5,7 +5,8 @@ export const BorderContainer = styled.div`
   border-radius: 10px;
   padding: 10px;
   overflow: auto;
-  height: 200px;
+  min-height: 200px;
+  max-height: 200px;
 `;
 
 export const RowContainer = styled.div`
