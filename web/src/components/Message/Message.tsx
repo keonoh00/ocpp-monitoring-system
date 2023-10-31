@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
 
-export interface MessageContainerProps {
+export interface MessageProps {
   message?: string;
   buttonStyle?: React.CSSProperties;
   modalStyle?: React.CSSProperties;
@@ -11,7 +11,7 @@ export interface MessageContainerProps {
   };
 }
 
-const MessageContainer: FC<MessageContainerProps> = ({
+const Message: FC<MessageProps> = ({
   message,
   buttonStyle,
   modalStyle,
@@ -77,4 +77,4 @@ const MessageContainer: FC<MessageContainerProps> = ({
     </>
   );
 };
-export default MessageContainer;
+export default Message;
