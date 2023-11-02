@@ -1,31 +1,22 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { ClientStatus } from 'src/types/clients';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
-@Entity()
+@Entity({ name: 'outgoing_messages', synchronize: false })
 export class Client {
   @Field(() => Number)
   @PrimaryGeneratedColumn()
   id: number;
 
   @Field(() => String, { nullable: true })
-  @Column({ nullable: true })
-  name?: string;
+  @Column({ name: 'message_name', nullable: true })
+  messageName?: string;
 
   @Field(() => String)
-  @Column()
-  address: string;
-
-  @Field(() => Date)
-  @Column()
-  createdAt: Date;
-
-  @Field(() => Date)
-  @Column()
-  updatedAt: Date;
+  @Column({ name: 'date', nullable: true })
+  createdAt?: string;
 
   @Field(() => String)
-  @Column()
-  status: ClientStatus;
+  @Column({ name: 'message_parameters', nullable: true })
+  messageParameteres?: string;
 }
