@@ -9,12 +9,13 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
+  Spacer,
 } from "@chakra-ui/react";
 import { IMessage } from "../../hooks/useClients";
 
 export interface MessageProps extends IMessage {}
 
-const Message: FC<MessageProps> = ({ message, modalContent }) => {
+const Message: FC<MessageProps> = ({ message, modalContent, createdAt }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleOpen = () => {
@@ -28,13 +29,14 @@ const Message: FC<MessageProps> = ({ message, modalContent }) => {
       fontSize={"0.5em"}
       width={"100%"}
       justifyContent={"flex-start"}
-      backgroundColor={"lightGrey"}
       borderRadius={0}
       height={"auto"}
       padding={1}
       margin={0}
     >
       {message ? message : "No Message"}
+      <Spacer />
+      {createdAt?.toISOString() || "No Date"}
       <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>

@@ -48,6 +48,7 @@ const MessagesContainer: FC<MessagesContainerProps> = ({
                 key={idx}
                 message={message.message}
                 modalContent={message.modalContent}
+                createdAt={message.createdAt}
               />
             ))
           : null}

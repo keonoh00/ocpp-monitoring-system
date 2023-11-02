@@ -115,6 +115,7 @@ export interface IMessage {
     title: string;
     details: string;
   };
+  createdAt?: Date;
 }
 
 export interface Client {
@@ -143,6 +144,7 @@ const useClients = () => {
               }`,
               details: `This is a message from client ${client.id}`,
             },
+            createdAt: new Date(),
           });
         }
       });
