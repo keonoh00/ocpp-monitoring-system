@@ -68,7 +68,7 @@ const StatusContainer = () => {
 
       <AutoScrollContainer height={230}>
         {clients.map((client, idx) => (
-          <Flex direction={"row"} alignItems={"center"} padding={1}>
+          <Flex key={idx} direction={"row"} alignItems={"center"} padding={1}>
             <Flex direction={"column"} {...ID_COLUMN_STYLE_PROPS}>
               <Text textAlign={"center"} fontSize={"xs"}>
                 Charger: {client.id}
