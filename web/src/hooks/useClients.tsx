@@ -128,28 +128,29 @@ const useClients = () => {
   const [clients, setClients] = useState<Client[]>(CLIENTS);
 
   useEffect(() => {
-    // Randomly add messages to clients
+    // Add a message to random clients
     const interval = setInterval(() => {
-      const newClients = [...clients];
+      const randomIdx = Math.floor(Math.random() * clients.length);
+      const randomClient = clients[randomIdx];
 
-      newClients.forEach((client) => {
-        if (Math.random() < 0.5) {
-          client.messages.push({
-            message: `Message ${client.messages.length + 1} from client ${
-              client.id
-            }`,
-            modalContent: {
-              title: `Message ${client.messages.length + 1} - Client ${
-                client.id
-              }`,
-              details: `This is a message from client ${client.id}`,
-            },
-            createdAt: new Date(),
-          });
-        }
+      const newMessage = {
+        message: `Message ${randomClient.messages.length + 1} from client ${
+          randomClient.id
+        }`,
+        modalContent: {
+          title: `Message ${randomClient.messages.length + 1} - Client ${
+            randomClient.id
+          }`,
+          details: `This is a message from client ${randomClient.id}`,
+        },
+        createdAt: new Date(),
+      };
+
+      setClients((prevClients) => {
+        const newClients = [...prevClients];
+        newClients[randomIdx].messages.push(newMessage);
+        return newClients;
       });
-
-      setClients(newClients);
     }, 1000);
 
     return () => clearInterval(interval);
