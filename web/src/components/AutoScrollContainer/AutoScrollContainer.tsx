@@ -1,4 +1,4 @@
-import { Box, Switch } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Switch, Text } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 
 interface Props {
@@ -68,10 +68,17 @@ const AutoScrollContainer = ({
         {children}
       </div>
       {showAutoScrollButton ? (
-        <Switch
-          isChecked={autoScroll}
-          onChange={() => setAutoScroll(!autoScroll)}
-        />
+        <Flex direction={"row"} alignItems={"center"}>
+          <Spacer />
+          <Text fontSize={"sm"} marginRight={1}>
+            Auto Scroll
+          </Text>
+          <Switch
+            size={"sm"}
+            isChecked={autoScroll}
+            onChange={() => setAutoScroll(!autoScroll)}
+          />
+        </Flex>
       ) : null}
     </Box>
   );
