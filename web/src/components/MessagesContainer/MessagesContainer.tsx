@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import AutoScrollContainer from "../AutoScrollContainer/AutoScrollContainer";
 import Message from "../Message/Message";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Spacer } from "@chakra-ui/react";
 import { IMessage } from "../../hooks/useClients";
 
 interface MessagesContainerProps {
@@ -25,11 +25,15 @@ const MessagesContainer: FC<MessagesContainerProps> = ({
       borderRadius={3}
       padding={1}
     >
-      <Box flexDirection={"row"} justifyContent={"center"}>
-        <Box>{titleLeftEnhancer ? titleLeftEnhancer : null}</Box>
-        <Heading size={"sm"}>{title}</Heading>
-        <Box>{titleRightEnhancer ? titleRightEnhancer : null}</Box>
-      </Box>
+      <Flex direction={"row"} alignItems={"center"} padding={1}>
+        {titleLeftEnhancer ? titleLeftEnhancer : null}
+        <Spacer />
+        <Heading textAlign={"center"} size={"sm"}>
+          {title}
+        </Heading>
+        <Spacer />
+        {titleRightEnhancer ? titleRightEnhancer : null}
+      </Flex>
 
       <AutoScrollContainer height={230}>
         {messages && messages?.length > 0
