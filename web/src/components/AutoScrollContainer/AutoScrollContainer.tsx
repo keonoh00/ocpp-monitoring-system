@@ -5,6 +5,7 @@ interface Props {
   height?: number;
   scrollBehavior?: "smooth" | "auto";
   showAutoScrollButton?: boolean;
+  flexDirection?: "column" | "row";
   children: React.ReactNode;
 }
 
@@ -12,6 +13,7 @@ const AutoScrollContainer = ({
   height,
   scrollBehavior = "smooth",
   showAutoScrollButton = true,
+  flexDirection = "column",
   children,
 }: Props) => {
   const [autoScroll, setAutoScroll] = useState(true);
@@ -55,7 +57,8 @@ const AutoScrollContainer = ({
 
   return (
     <Box>
-      <Box
+      <Flex
+        direction={flexDirection}
         onWheel={onWheel}
         ref={containerElement}
         style={{
@@ -67,7 +70,7 @@ const AutoScrollContainer = ({
         }}
       >
         {children}
-      </Box>
+      </Flex>
       {showAutoScrollButton ? (
         <Flex direction={"row"} alignItems={"center"}>
           <Spacer />
