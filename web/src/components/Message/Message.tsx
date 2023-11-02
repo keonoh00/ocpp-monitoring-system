@@ -36,7 +36,7 @@ const Message: FC<MessageProps> = ({ message, modalContent, createdAt }) => {
     >
       {message ? message : "No Message"}
       <Spacer />
-      {createdAt?.toISOString() || "No Date"}
+      {createdAt?.toLocaleTimeString() || "No Date"}
       <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
