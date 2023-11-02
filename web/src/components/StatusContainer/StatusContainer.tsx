@@ -27,8 +27,6 @@ const DETAILS_COLUMN_STYLE_PROPS = {
 const StatusContainer = () => {
   const { data: clients } = useClients();
 
-  console.log("clients", clients);
-
   return (
     <Box
       borderWidth="1px"
