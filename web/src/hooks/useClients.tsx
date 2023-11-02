@@ -54,48 +54,64 @@ const CLIENT_1 = {
   id: 1,
   name: "Client 1",
   messages: MESSAGES_CLIENT_1,
+  status: "Online",
+  statusDetails: "Waiting for client",
 };
 
 const CLIENT_2 = {
   id: 2,
   name: "Client 2",
   messages: MESSAGES_CLIENT_2,
+  status: "Charging",
+  statusDetails: "Charging Duration: 1h 30m",
 };
 
 const CLIENT_3 = {
   id: 3,
   name: "Client 3",
   messages: MESSAGES_CLIENT_3,
+  status: "Offline",
+  statusDetails: "Error Code: 0x000000",
 };
 
 const CLIENT_4 = {
   id: 4,
   name: "Client 4",
   messages: MESSAGES_CLIENT_4,
+  status: "Online",
+  statusDetails: "Waiting for client",
 };
 
 const CLIENT_5 = {
   id: 5,
   name: "Client 5",
   messages: [],
+  status: "Offline",
+  statusDetails: "Error Code: 0x000000",
 };
 
 const CLIENT_6 = {
   id: 6,
   name: "Client 6",
   messages: [],
+  status: "Online",
+  statusDetails: "Waiting for client",
 };
 
 const CLIENT_7 = {
   id: 7,
   name: "Client 7",
   messages: MESSAGES_CLIENT_7,
+  status: "Charging",
+  statusDetails: "Charging Duration: 1h 30m",
 };
 
 const CLIENT_8 = {
   id: 8,
   name: "Client 8",
   messages: [],
+  status: "Charging",
+  statusDetails: "Charging Duration: 1h 30m",
 };
 
 const CLIENTS = [
@@ -118,14 +134,16 @@ export interface IMessage {
   createdAt?: Date;
 }
 
-export interface Client {
+export interface IClient {
   id: number;
   name: string;
   messages: IMessage[];
+  status: string;
+  statusDetails?: string;
 }
 
 const useClients = () => {
-  const [clients, setClients] = useState<Client[]>(CLIENTS);
+  const [clients, setClients] = useState<IClient[]>(CLIENTS);
 
   useEffect(() => {
     // Add a message to random clients
