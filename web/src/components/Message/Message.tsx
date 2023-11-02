@@ -1,57 +1,32 @@
 import React, { FC, useState } from "react";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Modal, Button, Box, Text } from "@chakra-ui/react";
+import { IMessage } from "../../hooks/useClients";
 
-export interface MessageProps {
-  message?: string;
-  buttonStyle?: React.CSSProperties;
-  modalStyle?: React.CSSProperties;
-  modalContent?: {
-    title?: string;
-    details?: string;
-  };
-}
+export interface MessageProps extends IMessage {}
 
-const Message: FC<MessageProps> = ({
-  message,
-  buttonStyle,
-  modalStyle,
-  modalContent,
-}) => {
+const Message: FC<MessageProps> = ({ message, modalContent }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
   return (
-    <>
-      <Button
-        style={{
-          fontSize: "0.5em",
-          width: "100%",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          paddingTop: 0,
-          paddingBottom: 0,
-          textAlign: "left",
-          backgroundColor: "lightgray",
-          borderRadius: 0,
-          ...buttonStyle,
-        }}
-        onClick={handleOpen}
-      >
-        {message || "No Message"}
-      </Button>
-      <Modal
-        open={isOpen}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+    <Button
+      onClick={handleOpen}
+      style={{
+        fontSize: "0.5em",
+        width: "100%",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        paddingTop: 0,
+        paddingBottom: 0,
+        textAlign: "left",
+        backgroundColor: "lightgray",
+        borderRadius: 0,
+      }}
+    >
+      {message ? message : "No Message"}
+      <Modal isOpen={isOpen} onClose={handleClose}>
         <Box
           sx={{
             backgroundColor: "white",
@@ -62,19 +37,21 @@ const Message: FC<MessageProps> = ({
             minHeight: "50%",
             maxHeight: "80%",
             overflow: "auto",
-            ...modalStyle,
           }}
         >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {modalContent?.title || "No Title"}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {modalContent?.details ||
-              "asdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowieasdfasdf afsdasdfa asdfasdfasdfasdfa  iajfwo;eijfaow;ef a;fjwa;oif ja;ofj a;woeifjaowiejfawoifjaowie"}
-          </Typography>
+          <Text id="modal-modal-title" variant="h6">
+            {modalContent && modalContent.title
+              ? modalContent.title
+              : "No Title"}
+          </Text>
+          <Text id="modal-modal-description" sx={{ mt: 2 }}>
+            {modalContent && modalContent.details
+              ? modalContent.details
+              : "No Details"}
+          </Text>
         </Box>
       </Modal>
-    </>
+    </Button>
   );
 };
 export default Message;
