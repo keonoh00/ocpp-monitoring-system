@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
 import { IMessage } from "./useClients";
+import { GET_SERVER_MESSAGE } from "../api/gql";
 
 const SERVER = {
   id: 1,
@@ -17,44 +19,44 @@ export interface IServer {
   statusDetails?: string;
 }
 
+export interface IGQLServerMessage {
+  id: number;
+  createdAt: string;
+  messageName: string;
+  messageParameters: string;
+}
+export interface IGQLServer {
+  servers: IGQLServerMessage[];
+}
+
 const useServer = () => {
   const [server, setServer] = useState<IServer>(SERVER);
+  const { data } = useQuery<IGQLServer>(GET_SERVER_MESSAGE, {
+    pollInterval: 100,
+  });
 
   useEffect(() => {
-    // Randomly generate a new status for the server
-    const status = Math.random() < 0.5 ? "Online" : "Offline";
-    const statusDetails =
-      status === "Online" ? "Waiting for client" : "No Client Connected";
-    setServer((prev) => ({ ...prev, status, statusDetails }));
-  }, []);
-
-  useEffect(() => {
-    // Randomly generate a new message for the server
-    const interval = setInterval(() => {
-      const addMessage = Math.random() < 0.5 ? true : false;
-      if (!addMessage) return;
-
-      const modalContent = {
-        title: "Server",
-        details: "This is a message from the server",
-      };
-      setServer((prev) => ({
-        ...prev,
-        messages: [
-          ...prev.messages,
-          {
-            message: `This is a ${
-              prev.messages.length + 1
-            } message from the server`,
-            modalContent,
-            createdAt: new Date(),
-          },
-        ],
+    if (data) {
+      const messages = data.servers.map((message) => ({
+        message: message.messageName,
+        modalContent: {
+          title: message.messageName,
+          details: JSON.parse(message.messageParameters),
+        },
+        createdAt: new Date(Number(message.createdAt)),
       }));
 
-      return () => clearInterval(interval);
-    }, 1000);
-  }, []);
+      const server = {
+        id: 1,
+        name: "Server",
+        messages: messages,
+        status: "Online",
+        statusDetails: "Waiting for client",
+      };
+
+      setServer(server);
+    }
+  }, [data]);
 
   return { data: server };
 };
