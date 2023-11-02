@@ -1,60 +1,96 @@
-import React, { useState } from "react";
-import {
-  BorderContainer,
-  RowContainer,
-  StatusTitle,
-  StatusText,
-  StatusDeatails,
-} from "./styled";
+import React from "react";
 
-interface Status {
-  idx: number;
-  title: string;
-  status: string;
-  details?: string;
-}
+import useClients from "../../hooks/useClients";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import AutoScrollContainer from "../AutoScrollContainer/AutoScrollContainer";
 
 const HEADER = {
-  title: "Title",
+  id: "ID",
   status: "Status",
   details: "Details",
 };
 
+const ID_COLUMN_STYLE_PROPS = {
+  width: "20%",
+  borderRight: "1px",
+};
+
+const STATUS_COLUMN_STYLE_PROPS = {
+  width: "30%",
+  borderRight: "1px",
+};
+
+const DETAILS_COLUMN_STYLE_PROPS = {
+  width: "50%",
+};
+
 const StatusContainer = () => {
-  const [status, setStatus] = useState<Status[]>([
-    { idx: 0, title: "Charger1", status: "Charging", details: "70%" },
-    { idx: 1, title: "Charger2", status: "OK" },
-    { idx: 2, title: "Charger3", status: "OK" },
-    { idx: 3, title: "Charger4", status: "OK" },
-    { idx: 4, title: "Charger5", status: "Fail", details: "Error Code: 1" },
-  ]);
+  const { data: clients } = useClients();
+
+  console.log("clients", clients);
 
   return (
-    <BorderContainer>
-      <RowContainer
-        key={HEADER.status}
-        style={{
-          paddingBottom: 5,
-          marginBottom: 5,
-          borderBottom: 1,
-          borderColor: "lightgray",
-          borderBottomStyle: "solid",
-        }}
+    <Box
+      borderWidth="1px"
+      borderRadius="lg"
+      flex={1}
+      margin={1}
+      padding={2}
+      borderColor={"gray.400"}
+    >
+      <Flex
+        direction={"row"}
+        alignItems={"center"}
+        padding={1}
+        marginBottom={2}
       >
-        <StatusTitle style={{ fontSize: "1em" }}>{HEADER.title}</StatusTitle>
-        <StatusText style={{ fontSize: "1em" }}>{HEADER.status}</StatusText>
-        <StatusDeatails style={{ fontSize: "1em" }}>
-          {HEADER.details}
-        </StatusDeatails>
-      </RowContainer>
-      {status.map((status) => (
-        <RowContainer key={status.idx} style={{ marginBottom: 5 }}>
-          <StatusTitle>{status.title}</StatusTitle>
-          <StatusText>{status.status}</StatusText>
-          <StatusDeatails>{status?.details}</StatusDeatails>
-        </RowContainer>
-      ))}
-    </BorderContainer>
+        <Flex direction={"column"} {...ID_COLUMN_STYLE_PROPS}>
+          <Box>
+            <Heading textAlign={"center"} size={"sm"}>
+              {HEADER.id}
+            </Heading>
+          </Box>
+        </Flex>
+
+        <Flex direction={"column"} {...STATUS_COLUMN_STYLE_PROPS}>
+          <Box>
+            <Heading textAlign={"center"} size={"sm"}>
+              {HEADER.status}
+            </Heading>
+          </Box>
+        </Flex>
+        <Flex direction={"column"} {...DETAILS_COLUMN_STYLE_PROPS}>
+          <Box>
+            <Heading textAlign={"center"} size={"sm"}>
+              {HEADER.details}
+            </Heading>
+          </Box>
+        </Flex>
+      </Flex>
+
+      <AutoScrollContainer height={230}>
+        {clients.map((client, idx) => (
+          <Flex direction={"row"} alignItems={"center"} padding={1}>
+            <Flex direction={"column"} {...ID_COLUMN_STYLE_PROPS}>
+              <Text textAlign={"center"} fontSize={"xs"}>
+                Charger: {client.id}
+              </Text>
+            </Flex>
+
+            <Flex direction={"column"} {...STATUS_COLUMN_STYLE_PROPS}>
+              <Text textAlign={"center"} fontSize={"xs"}>
+                {client.status}
+              </Text>
+            </Flex>
+            <Flex direction={"column"} {...DETAILS_COLUMN_STYLE_PROPS}>
+              <Text textAlign={"center"} fontSize={"xs"}>
+                {client?.statusDetails || ""}
+              </Text>
+            </Flex>
+          </Flex>
+        ))}
+      </AutoScrollContainer>
+    </Box>
   );
 };
 
