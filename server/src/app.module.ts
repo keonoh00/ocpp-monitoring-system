@@ -6,6 +6,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { Client } from './clients/entities/client.entity';
+import { ServerModule } from './server/server.module';
+import { Server } from './server/entities/server.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { Client } from './clients/entities/client.entity';
       }),
     }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: 'mysql',
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
@@ -31,13 +33,14 @@ import { Client } from './clients/entities/client.entity';
       database: process.env.DB_NAME,
       synchronize: true,
       logging: true,
-      entities: [Client],
+      entities: [Client, Server],
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
     ClientsModule,
+    ServerModule,
   ],
   controllers: [],
   providers: [],
