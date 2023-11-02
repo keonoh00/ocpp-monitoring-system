@@ -62,7 +62,7 @@ const AutoScrollContainer = ({
           height,
           overflow: "auto",
           scrollBehavior: "auto",
-          pointerEvents: "none",
+          pointerEvents: "auto",
         }}
       >
         {children}
