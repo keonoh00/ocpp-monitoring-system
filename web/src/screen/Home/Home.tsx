@@ -1,8 +1,7 @@
-import { RowContainer, Title } from "./styled";
 import React, { useEffect } from "react";
 import StatusContainer from "../../components/StatusContainer/StatusContainer";
 import MessagesContainer from "../../components/MessagesContainer/MessagesContainer";
-import { Box } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 import useClients, { Client } from "../../hooks/useClients";
@@ -24,9 +23,22 @@ const Home = () => {
   };
 
   return (
-    <Box paddingInline={2} justifyItems={"center"}>
-      <Title>OCPP-Web</Title>
-      <RowContainer>
+    <Flex
+      direction={"column"}
+      paddingInline={2}
+      justifyItems={"center"}
+      paddingBlock={5}
+    >
+      <Heading
+        color={"red.400"}
+        fontSize={"3xl"}
+        textAlign={"center"}
+        marginBottom={5}
+      >
+        OCPP Monitoring System
+      </Heading>
+
+      <Flex marginBottom={5}>
         {selectedClient ? (
           <MessagesContainer
             titleLeftEnhancer={
@@ -85,9 +97,9 @@ const Home = () => {
             },
           ]}
         />
-      </RowContainer>
+      </Flex>
       <StatusContainer />
-    </Box>
+    </Flex>
   );
 };
 

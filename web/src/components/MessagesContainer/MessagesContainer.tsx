@@ -19,13 +19,19 @@ const MessagesContainer: FC<MessagesContainerProps> = ({
 }) => {
   return (
     <Box
-      border={1}
-      borderColor={"lightGrey"}
+      borderWidth="1px"
+      borderRadius="lg"
       flex={1}
-      borderRadius={3}
-      padding={1}
+      margin={1}
+      padding={2}
+      borderColor={"gray.400"}
     >
-      <Flex direction={"row"} alignItems={"center"} padding={1}>
+      <Flex
+        direction={"row"}
+        alignItems={"center"}
+        padding={1}
+        marginBottom={2}
+      >
         {titleLeftEnhancer ? titleLeftEnhancer : null}
         <Spacer />
         <Heading textAlign={"center"} size={"sm"}>

@@ -55,7 +55,7 @@ const AutoScrollContainer = ({
 
   return (
     <Box>
-      <div
+      <Box
         onWheel={onWheel}
         ref={containerElement}
         style={{
@@ -63,10 +63,11 @@ const AutoScrollContainer = ({
           overflow: "auto",
           scrollBehavior: "auto",
           pointerEvents: "auto",
+          marginBottom: 5,
         }}
       >
         {children}
-      </div>
+      </Box>
       {showAutoScrollButton ? (
         <Flex direction={"row"} alignItems={"center"}>
           <Spacer />
