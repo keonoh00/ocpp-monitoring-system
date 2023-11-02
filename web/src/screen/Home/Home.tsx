@@ -4,13 +4,15 @@ import MessagesContainer from "../../components/MessagesContainer/MessagesContai
 import { Flex, Heading } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
-import useClients, { Client } from "../../hooks/useClients";
+import useClients, { IClient } from "../../hooks/useClients";
+import useServer from "../../hooks/useServer";
 
 const Home = () => {
-  const [selectedClient, setSelectedClient] = React.useState<Client | null>(
+  const [selectedClient, setSelectedClient] = React.useState<IClient | null>(
     null
   );
   const { data: clients } = useClients();
+  const { data: server } = useServer();
 
   useEffect(() => {
     if (clients?.length && !selectedClient) {
@@ -18,7 +20,7 @@ const Home = () => {
     }
   }, [clients, selectedClient]);
 
-  const handleClientChange = (client: Client) => {
+  const handleClientChange = (client: IClient) => {
     setSelectedClient(client);
   };
 
@@ -85,18 +87,7 @@ const Home = () => {
           />
         )}
 
-        <MessagesContainer
-          title="Server"
-          messages={[
-            {
-              message: "Loading...",
-              modalContent: {
-                title: "Loading...",
-                details: "Loading...",
-              },
-            },
-          ]}
-        />
+        <MessagesContainer title="Server" messages={server?.messages} />
       </Flex>
       <StatusContainer />
     </Flex>
