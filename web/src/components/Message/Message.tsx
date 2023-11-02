@@ -49,7 +49,13 @@ const Message: FC<MessageProps> = ({ message, modalContent, createdAt }) => {
           <ModalBody>
             <Text id="modal-modal-description" sx={{ mt: 2 }}>
               {modalContent && modalContent.details
-                ? modalContent.details
+                ? Object.entries(modalContent.details).map(
+                    ([key, value], idx) => (
+                      <Text key={idx}>
+                        {key}: {value}
+                      </Text>
+                    )
+                  )
                 : "No Details"}
             </Text>
           </ModalBody>
