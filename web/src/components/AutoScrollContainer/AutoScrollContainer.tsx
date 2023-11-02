@@ -1,21 +1,21 @@
-import { FormControlLabel, Switch } from "@mui/material";
-import React from "react";
+import { Box, Switch } from "@chakra-ui/react";
+import React, { useRef, useState } from "react";
 
 interface Props {
-  children: React.ReactNode;
   height?: number;
   scrollBehavior?: "smooth" | "auto";
   showAutoScrollButton?: boolean;
+  children: React.ReactNode;
 }
 
 const AutoScrollContainer = ({
-  children,
   height,
   scrollBehavior = "smooth",
   showAutoScrollButton = true,
+  children,
 }: Props) => {
-  const [autoScroll, setAutoScroll] = React.useState(true);
-  const containerElement = React.useRef<HTMLDivElement>(null);
+  const [autoScroll, setAutoScroll] = useState(true);
+  const containerElement = useRef<HTMLDivElement>(null);
 
   // Handle mousewheel events on the scroll container.
   const onWheel = () => {
@@ -54,7 +54,7 @@ const AutoScrollContainer = ({
   }, [children, containerElement, autoScroll]);
 
   return (
-    <div>
+    <Box>
       <div
         onWheel={onWheel}
         ref={containerElement}
@@ -67,15 +67,13 @@ const AutoScrollContainer = ({
       >
         {children}
       </div>
-      {showAutoScrollButton && (
-        <FormControlLabel
-          control={<Switch size="small" />}
-          label="Auto scroll"
-          labelPlacement="end"
-          checked={autoScroll}
+      {showAutoScrollButton ? (
+        <Switch
+          isChecked={autoScroll}
+          onChange={() => setAutoScroll(!autoScroll)}
         />
-      )}
-    </div>
+      ) : null}
+    </Box>
   );
 };
 
