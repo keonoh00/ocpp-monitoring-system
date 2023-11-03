@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { IMessage } from "./useClients";
 import { GET_SERVER_MESSAGE } from "../api/gql";
+import { POLL_INTERVAL } from "../constants/query";
+import { parseServerMessage } from "../utils/query";
 
 const SERVER = {
   id: 1,
@@ -32,32 +34,26 @@ export interface IGQLServer {
 const useServer = () => {
   const [server, setServer] = useState<IServer>(SERVER);
   const { data } = useQuery<IGQLServer>(GET_SERVER_MESSAGE, {
-    pollInterval: 100,
+    pollInterval: POLL_INTERVAL,
   });
 
   useEffect(() => {
     if (data) {
       const messages = data.servers.map((message) => {
-        const base = {
-          message: message.messageName,
-          modalContent: {
-            title: message.messageName,
-            details: "",
-          },
-          createdAt: new Date(Number(message.createdAt)),
-        };
+        const parsed = parseServerMessage(message);
+        let details;
         try {
-          base.modalContent.details = JSON.parse(message.messageParameters);
+          details = JSON.parse(parsed.messageParameters);
         } catch (e) {
-          return base;
+          details = parsed.messageParameters;
         }
         return {
-          message: message.messageName,
+          message: parsed.messageName,
           modalContent: {
-            title: message.messageName,
-            details: JSON.parse(message.messageParameters),
+            title: parsed.messageName,
+            details,
           },
-          createdAt: new Date(Number(message.createdAt)),
+          createdAt: new Date(Number(parsed.createdAt)),
         };
       });
 

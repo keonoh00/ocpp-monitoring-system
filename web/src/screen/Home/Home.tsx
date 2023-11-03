@@ -11,7 +11,7 @@ const Home = () => {
   const [selectedClient, setSelectedClient] = React.useState<IClient | null>(
     null
   );
-  const { data: clients, isFirstLoading: isFirstClientLoading } = useClients();
+  const { data: clients, isLoading: isLoadingClient } = useClients();
   const { data: server } = useServer();
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Home = () => {
       </Heading>
 
       <Flex marginBottom={5}>
-        {!isFirstClientLoading ? (
+        {!isLoadingClient ? (
           selectedClient ? (
             <MessagesContainer
               titleLeftEnhancer={

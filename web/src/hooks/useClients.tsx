@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_CLIENT_MESSAGE } from "../api/gql";
+import { POLL_INTERVAL } from "../constants/query";
+import { parseClientMessage } from "../utils/query";
 
 export interface IMessage {
   message: string;
@@ -31,42 +33,27 @@ export interface IGQLClient {
 
 const useServer = () => {
   const [clients, setClients] = useState<IClient[]>([]);
-  const [isFirstLoading, setIsFirstLoading] = useState<boolean>(true);
   const { loading, data } = useQuery<IGQLClient>(GET_CLIENT_MESSAGE, {
-    pollInterval: 100,
+    pollInterval: POLL_INTERVAL,
   });
-
-  useEffect(() => {
-    if (!isFirstLoading) return;
-
-    if (!loading) {
-      setIsFirstLoading(false);
-    }
-  }, [isFirstLoading, loading]);
 
   useEffect(() => {
     if (data) {
       const messages = data.clients.map((message) => {
-        const base = {
-          message: message.messageName,
-          modalContent: {
-            title: message.messageName,
-            details: "",
-          },
-          createdAt: new Date(Number(message.createdAt)),
-        };
+        const parsed = parseClientMessage(message);
+        let details;
         try {
-          base.modalContent.details = JSON.parse(message.messageParameters);
+          details = JSON.parse(parsed.messageParameters);
         } catch (e) {
-          return base;
+          details = parsed.messageParameters;
         }
         return {
-          message: message.messageName,
+          message: parsed.messageName,
           modalContent: {
-            title: message.messageName,
-            details: JSON.parse(message.messageParameters),
+            title: parsed.messageName,
+            details,
           },
-          createdAt: new Date(Number(message.createdAt)),
+          createdAt: new Date(Number(parsed.createdAt)),
         };
       });
 
@@ -82,7 +69,7 @@ const useServer = () => {
     }
   }, [data]);
 
-  return { data: clients, isFirstLoading };
+  return { data: clients, isLoading: loading };
 };
 
 export default useServer;

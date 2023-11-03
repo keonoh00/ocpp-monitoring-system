@@ -2,3 +2,5 @@ export const QUERY_KEYS = {
   CHARGERS: "CHARGERS",
   CHARGER_STATUS: "CHARGER_STATUS",
 };
+
+export const POLL_INTERVAL = 500;
