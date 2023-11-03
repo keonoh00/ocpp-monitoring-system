@@ -37,14 +37,29 @@ const useServer = () => {
 
   useEffect(() => {
     if (data) {
-      const messages = data.servers.map((message) => ({
-        message: message.messageName,
-        modalContent: {
-          title: message.messageName,
-          details: JSON.parse(message.messageParameters),
-        },
-        createdAt: new Date(Number(message.createdAt)),
-      }));
+      const messages = data.servers.map((message) => {
+        const base = {
+          message: message.messageName,
+          modalContent: {
+            title: message.messageName,
+            details: "",
+          },
+          createdAt: new Date(Number(message.createdAt)),
+        };
+        try {
+          base.modalContent.details = JSON.parse(message.messageParameters);
+        } catch (e) {
+          return base;
+        }
+        return {
+          message: message.messageName,
+          modalContent: {
+            title: message.messageName,
+            details: JSON.parse(message.messageParameters),
+          },
+          createdAt: new Date(Number(message.createdAt)),
+        };
+      });
 
       const server = {
         id: 1,
