@@ -47,17 +47,15 @@ const Message: FC<MessageProps> = ({ message, modalContent, createdAt }) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text id="modal-modal-description" sx={{ mt: 2 }}>
-              {modalContent && modalContent.details
-                ? Object.entries(modalContent.details).map(
-                    ([key, value], idx) => (
-                      <Text key={idx}>
-                        {key}: {value}
-                      </Text>
-                    )
-                  )
-                : "No Details"}
-            </Text>
+            {modalContent && modalContent.details ? (
+              Object.entries(modalContent.details).map(([key, value], idx) => (
+                <Text key={idx}>
+                  {key}: {value}
+                </Text>
+              ))
+            ) : (
+              <Text> No Details</Text>
+            )}
           </ModalBody>
 
           <ModalFooter>
