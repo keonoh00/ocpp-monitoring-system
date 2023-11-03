@@ -63,7 +63,7 @@ const useServer = () => {
 
       const client = {
         id: 1,
-        name: "Server",
+        name: "Client",
         messages: messages,
         status: "Online",
         statusDetails: "Waiting for server",
