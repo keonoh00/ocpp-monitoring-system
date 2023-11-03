@@ -18,5 +18,5 @@ export class Client {
 
   @Field(() => String)
   @Column({ name: 'message_parameters', nullable: true })
-  messageParameteres?: string;
+  messageParameters?: string;
 }
