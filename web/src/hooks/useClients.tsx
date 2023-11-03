@@ -31,9 +31,18 @@ export interface IGQLClient {
 
 const useServer = () => {
   const [clients, setClients] = useState<IClient[]>([]);
-  const { data } = useQuery<IGQLClient>(GET_CLIENT_MESSAGE, {
+  const [isFirstLoading, setIsFirstLoading] = useState<boolean>(true);
+  const { loading, data } = useQuery<IGQLClient>(GET_CLIENT_MESSAGE, {
     pollInterval: 100,
   });
+
+  useEffect(() => {
+    if (!isFirstLoading) return;
+
+    if (!loading) {
+      setIsFirstLoading(false);
+    }
+  }, [isFirstLoading, loading]);
 
   useEffect(() => {
     if (data) {
@@ -73,7 +82,7 @@ const useServer = () => {
     }
   }, [data]);
 
-  return { data: clients };
+  return { data: clients, isFirstLoading };
 };
 
 export default useServer;

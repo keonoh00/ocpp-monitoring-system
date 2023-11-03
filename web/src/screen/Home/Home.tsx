@@ -11,7 +11,7 @@ const Home = () => {
   const [selectedClient, setSelectedClient] = React.useState<IClient | null>(
     null
   );
-  const { data: clients } = useClients();
+  const { data: clients, isFirstLoading: isFirstClientLoading } = useClients();
   const { data: server } = useServer();
 
   useEffect(() => {
@@ -41,37 +41,41 @@ const Home = () => {
       </Heading>
 
       <Flex marginBottom={5}>
-        {selectedClient ? (
-          <MessagesContainer
-            titleLeftEnhancer={
-              <ArrowLeftIcon
-                boxSize={3}
-                onClick={() => {
-                  const idx = clients.findIndex(
-                    (client) => client.id === selectedClient.id
-                  );
-                  if (idx > 0) {
-                    handleClientChange(clients[idx - 1]);
-                  }
-                }}
-              />
-            }
-            title={`Client: ${selectedClient.id}`}
-            titleRightEnhancer={
-              <ArrowRightIcon
-                boxSize={3}
-                onClick={() => {
-                  const idx = clients.findIndex(
-                    (client) => client.id === selectedClient.id
-                  );
-                  if (idx < clients.length - 1) {
-                    handleClientChange(clients[idx + 1]);
-                  }
-                }}
-              />
-            }
-            messages={selectedClient.messages}
-          />
+        {!isFirstClientLoading ? (
+          selectedClient ? (
+            <MessagesContainer
+              titleLeftEnhancer={
+                <ArrowLeftIcon
+                  boxSize={3}
+                  onClick={() => {
+                    const idx = clients.findIndex(
+                      (client) => client.id === selectedClient.id
+                    );
+                    if (idx > 0) {
+                      handleClientChange(clients[idx - 1]);
+                    }
+                  }}
+                />
+              }
+              title={`Client: ${selectedClient.id}`}
+              titleRightEnhancer={
+                <ArrowRightIcon
+                  boxSize={3}
+                  onClick={() => {
+                    const idx = clients.findIndex(
+                      (client) => client.id === selectedClient.id
+                    );
+                    if (idx < clients.length - 1) {
+                      handleClientChange(clients[idx + 1]);
+                    }
+                  }}
+                />
+              }
+              messages={selectedClient.messages}
+            />
+          ) : (
+            <MessagesContainer title="No Clients Connected" />
+          )
         ) : (
           <MessagesContainer
             title="Loading..."
