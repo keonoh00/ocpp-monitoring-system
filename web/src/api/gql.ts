@@ -10,3 +10,14 @@ export const GET_SERVER_MESSAGE = gql`
     }
   }
 `;
+
+export const GET_CLIENT_MESSAGE = gql`
+  query {
+    clients {
+      id
+      createdAt
+      messageName
+      messageParameters
+    }
+  }
+`;
