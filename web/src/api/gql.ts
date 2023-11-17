@@ -21,3 +21,13 @@ export const GET_CLIENT_MESSAGE = gql`
     }
   }
 `;
+
+export const GET_CLIENT_STATUS = gql`
+  query {
+    clientStatus {
+      id
+      status
+      value
+    }
+  }
+`;

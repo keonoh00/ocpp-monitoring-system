@@ -1,8 +1,7 @@
 import React from "react";
-
-import useClients from "../../hooks/useClients";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import AutoScrollContainer from "../AutoScrollContainer/AutoScrollContainer";
+import useClientStatus from "../../hooks/useClientStatus";
 
 const HEADER = {
   id: "ID",
@@ -25,7 +24,7 @@ const DETAILS_COLUMN_STYLE_PROPS = {
 };
 
 const StatusContainer = () => {
-  const { data: clients } = useClients();
+  const { data: status, isLoading: isLoadingStatus } = useClientStatus();
 
   return (
     <Box
@@ -67,26 +66,43 @@ const StatusContainer = () => {
       </Flex>
 
       <AutoScrollContainer height={230}>
-        {clients.map((client, idx) => (
-          <Flex key={idx} direction={"row"} alignItems={"center"} padding={1}>
-            <Flex direction={"column"} {...ID_COLUMN_STYLE_PROPS}>
-              <Text textAlign={"center"} fontSize={"xs"}>
-                Charger: {client.id}
-              </Text>
-            </Flex>
+        {isLoadingStatus ? (
+          <Text textAlign={"center"} fontSize={"xs"}>
+            Loading...
+          </Text>
+        ) : status.length === 0 ? (
+          <Text textAlign={"center"} fontSize={"xs"}>
+            No Status
+          </Text>
+        ) : (
+          <>
+            {status.map((status, idx) => (
+              <Flex
+                key={idx}
+                direction={"row"}
+                alignItems={"center"}
+                padding={1}
+              >
+                <Flex direction={"column"} {...ID_COLUMN_STYLE_PROPS}>
+                  <Text textAlign={"center"} fontSize={"xs"}>
+                    Charger: {status.id}
+                  </Text>
+                </Flex>
 
-            <Flex direction={"column"} {...STATUS_COLUMN_STYLE_PROPS}>
-              <Text textAlign={"center"} fontSize={"xs"}>
-                {client.status}
-              </Text>
-            </Flex>
-            <Flex direction={"column"} {...DETAILS_COLUMN_STYLE_PROPS}>
-              <Text textAlign={"center"} fontSize={"xs"}>
-                {client?.statusDetails || ""}
-              </Text>
-            </Flex>
-          </Flex>
-        ))}
+                <Flex direction={"column"} {...STATUS_COLUMN_STYLE_PROPS}>
+                  <Text textAlign={"center"} fontSize={"xs"}>
+                    {status?.status || ""}
+                  </Text>
+                </Flex>
+                <Flex direction={"column"} {...DETAILS_COLUMN_STYLE_PROPS}>
+                  <Text textAlign={"center"} fontSize={"xs"}>
+                    {status?.value || ""}
+                  </Text>
+                </Flex>
+              </Flex>
+            ))}
+          </>
+        )}
       </AutoScrollContainer>
     </Box>
   );

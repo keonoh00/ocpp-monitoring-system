@@ -3,7 +3,6 @@ import StatusContainer from "../../components/StatusContainer/StatusContainer";
 import MessagesContainer from "../../components/MessagesContainer/MessagesContainer";
 import { Flex, Heading } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-
 import useClients, { IClient } from "../../hooks/useClients";
 import useServer from "../../hooks/useServer";
 
