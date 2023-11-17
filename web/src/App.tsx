@@ -1,6 +1,9 @@
 import React from "react";
 import Home from "./screen/Home/Home";
 import styled from "styled-components";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Monitor from "./screen/Monitor/Monitor";
+import NotFound from "./screen/NotFound/NotFound";
 
 const AppContainer = styled.div`
   display: flex;
@@ -10,9 +13,15 @@ const AppContainer = styled.div`
 
 function App() {
   return (
-    <AppContainer>
-      <Home />
-    </AppContainer>
+    <BrowserRouter>
+      <AppContainer>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/monitor" element={<Monitor />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </AppContainer>
+    </BrowserRouter>
   );
 }
 
