@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Client } from './clients/entities/client.entity';
 import { ServerModule } from './server/server.module';
 import { Server } from './server/entities/server.entity';
+import { ClientStatus } from './clients/entities/clientStatus.entity';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { Server } from './server/entities/server.entity';
       database: 'ocpp',
       synchronize: true,
       logging: true,
-      entities: [Client, Server],
+      entities: [Client, Server, ClientStatus],
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
