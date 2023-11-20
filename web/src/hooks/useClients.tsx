@@ -17,8 +17,6 @@ export interface IClient {
   id: number;
   name: string;
   messages: IMessage[];
-  status: string;
-  statusDetails?: string;
 }
 
 export interface IGQLClientMessage {
@@ -61,8 +59,6 @@ const useServer = () => {
         id: 1,
         name: "Client",
         messages: messages,
-        status: "Online",
-        statusDetails: "Waiting for server",
       };
 
       setClients([client]);

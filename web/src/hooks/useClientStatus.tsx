@@ -20,10 +20,8 @@ const useClientStatus = () => {
   });
 
   useEffect(() => {
-    console.log(data);
     if (data) {
       setClientStatus(data.clientStatus);
-      console.log(data.clientStatus);
     }
   }, [data]);
 

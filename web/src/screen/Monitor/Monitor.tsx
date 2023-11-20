@@ -13,15 +13,28 @@ const Monitor = () => {
   const { data: clients, isLoading: isLoadingClient } = useClients();
   const { data: server } = useServer();
 
-  useEffect(() => {
-    if (clients?.length && !selectedClient) {
-      handleClientChange(clients[0]);
-    }
-  }, [clients, selectedClient]);
-
   const handleClientChange = (client: IClient) => {
     setSelectedClient(client);
   };
+
+  useEffect(() => {
+    if (clients) {
+      if (clients.length === 0) {
+        setSelectedClient(null);
+      } else if (clients.length === 1) {
+        setSelectedClient(clients[0]);
+      } else {
+        const idx = clients.findIndex(
+          (client) => client.id === selectedClient?.id
+        );
+        if (idx === -1) {
+          setSelectedClient(clients[0]);
+        }
+      }
+    } else {
+      setSelectedClient(null);
+    }
+  }, [clients, selectedClient]);
 
   return (
     <Flex
