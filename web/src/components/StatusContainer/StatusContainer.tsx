@@ -4,23 +4,17 @@ import AutoScrollContainer from "../AutoScrollContainer/AutoScrollContainer";
 import useClientStatus from "../../hooks/useClientStatus";
 
 const HEADER = {
-  id: "ID",
   status: "Status",
   details: "Details",
 };
 
-const ID_COLUMN_STYLE_PROPS = {
-  width: "20%",
-  borderRight: "1px",
-};
-
 const STATUS_COLUMN_STYLE_PROPS = {
-  width: "30%",
+  width: "40%",
   borderRight: "1px",
 };
 
 const DETAILS_COLUMN_STYLE_PROPS = {
-  width: "50%",
+  width: "60%",
 };
 
 const StatusContainer = () => {
@@ -41,14 +35,6 @@ const StatusContainer = () => {
         padding={1}
         marginBottom={2}
       >
-        <Flex direction={"column"} {...ID_COLUMN_STYLE_PROPS}>
-          <Box>
-            <Heading textAlign={"center"} size={"sm"}>
-              {HEADER.id}
-            </Heading>
-          </Box>
-        </Flex>
-
         <Flex direction={"column"} {...STATUS_COLUMN_STYLE_PROPS}>
           <Box>
             <Heading textAlign={"center"} size={"sm"}>
@@ -83,12 +69,6 @@ const StatusContainer = () => {
                 alignItems={"center"}
                 padding={1}
               >
-                <Flex direction={"column"} {...ID_COLUMN_STYLE_PROPS}>
-                  <Text textAlign={"center"} fontSize={"xs"}>
-                    Charger: {status.id}
-                  </Text>
-                </Flex>
-
                 <Flex direction={"column"} {...STATUS_COLUMN_STYLE_PROPS}>
                   <Text textAlign={"center"} fontSize={"xs"}>
                     {status?.status || ""}
