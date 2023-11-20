@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import StatusContainer from "../../components/StatusContainer/StatusContainer";
 import MessagesContainer from "../../components/MessagesContainer/MessagesContainer";
-import { Flex, Heading } from "@chakra-ui/react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { Box, Flex, Heading } from "@chakra-ui/react";
+import { ArrowLeftIcon, ArrowRightIcon, DownloadIcon } from "@chakra-ui/icons";
 import useClients, { IClient } from "../../hooks/useClients";
 import useServer from "../../hooks/useServer";
 
@@ -36,6 +36,42 @@ const Monitor = () => {
     }
   }, [clients, selectedClient]);
 
+  const onPressDownloadLog = () => {
+    const element = document.createElement("a");
+    let logs;
+    logs = server?.messages || [];
+    if (selectedClient) {
+      logs.push(...selectedClient?.messages);
+    }
+
+    // Sort by date
+    logs.sort((a, b) => {
+      if (a.createdAt && b.createdAt) {
+        return a.createdAt.getTime() - b.createdAt.getTime();
+      } else {
+        return 0;
+      }
+    });
+
+    // Convert to string with line breaks
+    logs = logs
+      .map((log) => {
+        const isClient = selectedClient?.messages.includes(log);
+
+        return `${log.createdAt?.toLocaleString()} - ${
+          isClient ? "incoming_message" : "outgoing_message"
+        } - ${log.message} - ${JSON.stringify(log.modalContent.details)}`;
+      })
+      .join("\n");
+
+    const file = new Blob([logs], { type: "text/plain" });
+
+    element.href = URL.createObjectURL(file);
+    element.download = `logs_${new Date().toISOString()}.txt`;
+    document.body.appendChild(element);
+    element.click();
+  };
+
   return (
     <Flex
       direction={"column"}
@@ -43,14 +79,30 @@ const Monitor = () => {
       justifyItems={"center"}
       paddingBlock={5}
     >
-      <Heading
-        color={"red.400"}
-        fontSize={"3xl"}
-        textAlign={"center"}
-        marginBottom={5}
+      <Flex
+        justifyContent={"center"}
+        direction={"row"}
+        marginBottom={4}
+        paddingInline={4}
       >
-        OCPP Monitoring System
-      </Heading>
+        <Box boxSize={5} marginRight={"auto"} />
+        <Heading
+          color={"linkedin.600"}
+          fontSize={"3xl"}
+          textAlign={"center"}
+          alignSelf={"center"}
+        >
+          OCPP Monitoring System
+        </Heading>
+        <DownloadIcon
+          boxSize={5}
+          alignSelf={"center"}
+          justifyContent={"flex-end"}
+          justifySelf={"flex-end"}
+          marginLeft={"auto"}
+          onClick={onPressDownloadLog}
+        />
+      </Flex>
 
       <Flex marginBottom={5}>
         {!isLoadingClient ? (
