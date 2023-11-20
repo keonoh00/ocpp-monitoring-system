@@ -1,14 +1,17 @@
 {
   "name": "ocpp-web",
   "version": "0.0.1",
+  "private": true,
   "description": "",
   "scripts": {
-    "web:dev": "cd web && yarn start",
-    "server:dev": "cd server && yarn start:dev"
+    "web:dev": "cd web && react-scripts start",
+    "server:dev": "cd server && nest start --watch",
+    "start": "concurrently \"npm run server:dev\" \"npm run web:dev\" "
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/keonoh00/ocpp-web.git"
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   },
-  "author": "Keon Oh Kim"
+  "workspaces": [
+    "./*"
+  ]
 }
