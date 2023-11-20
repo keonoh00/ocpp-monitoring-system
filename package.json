@@ -6,7 +6,7 @@
   "scripts": {
     "web:dev": "cd web && react-scripts start",
     "server:dev": "cd server && nest start --watch",
-    "start": "concurrently \"npm run server:dev\" \"npm run web:dev\" "
+    "start": "npm install -g yarn && yarn && concurrently \"yarn server:dev\" \"yarn web:dev\" "
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
